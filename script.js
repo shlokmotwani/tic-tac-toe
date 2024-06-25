@@ -1,3 +1,20 @@
+let playerCount = 0;
+let playerTurn = 0;
+let players = [];
+let gameBoard;
+const BLANK_CHAR = "_";
+const mainDiv = document.querySelector("#main");
+const resultTextArea = document.querySelector("#result");
+const startButton = document.querySelector("#start-button");
+const tttBoard = document.querySelector("#ttt-board");
+startButton.textContent = "Start Game!";
+startButton.addEventListener("click", () => {
+  startButton.style.visibility = "hidden";
+  tttBoard.style.visibility = "visible";
+  playGame();
+});
+
+
 function createBlankBoard() {
   const arr = [];
   for (let i = 0; i < 9; i++) {
@@ -83,10 +100,10 @@ function changePlayerTurn() {
 }
 
 function disableAllButtons() {
-  var btnArray = tttBoard.getElementsByTagName("button");
-  for (let i = 0; i < btnArray.length; i++) {
-    btnArray[i].disabled = true;
-  }
+  let btnArray = tttBoard.getElementsByTagName("button");
+  [...btnArray].forEach((element) => {
+    element.disabled = true;
+  });
 }
 
 function playGame() {
@@ -132,19 +149,3 @@ function resetEverything() {
   tttBoard.innerHTML = "";
   resultTextArea.textContent = "";
 }
-
-let playerCount = 0;
-let playerTurn = 0;
-let players = [];
-let gameBoard;
-const BLANK_CHAR = "_";
-const mainDiv = document.querySelector("#main");
-const resultTextArea = document.querySelector("#result");
-const startButton = document.querySelector("#start-button");
-const tttBoard = document.querySelector("#ttt-board");
-startButton.textContent = "Start Game!";
-startButton.addEventListener("click", () => {
-  startButton.style.visibility = "hidden";
-  tttBoard.style.visibility = "visible";
-  playGame();
-});
