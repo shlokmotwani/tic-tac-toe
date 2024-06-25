@@ -1,26 +1,26 @@
-function createBlankBoard(){
+function createBlankBoard() {
   const arr = [];
   for (let i = 0; i < 9; i++) {
     arr.push(BLANK_CHAR);
   }
   return arr;
-};
+}
 
-function displayGameBoard(){
+function displayGameBoard() {
   for (let i = 0; i < 8; i += 3) {
     console.log(
       gameBoard[i] + "  " + gameBoard[i + 1] + "  " + gameBoard[i + 2]
     );
   }
-};
+}
 
-function createButtons(){
+function createButtons() {
   for (let i = 0; i < 9; i++) {
     const btn = document.createElement("button");
     btn.id = "button-" + (i + 1);
     tttBoard.append(btn);
   }
-};
+}
 
 const createPlayer = (name) => {
   const playerName = name;
@@ -89,13 +89,11 @@ function disableAllButtons() {
   }
 }
 
-
 function playGame() {
   resetEverything();
   gameBoard = createBlankBoard();
   createButtons();
   askForPlayerDetails();
-  console.log("moves played = " + movesPlayed);
 
   tttBoard.addEventListener("click", (event) => {
     if (event.target.nodeName === "BUTTON") {
@@ -104,27 +102,21 @@ function playGame() {
       } else {
         let clickedBtnIndex = String(event.target.id);
         clickedBtnIndex = clickedBtnIndex.charAt(clickedBtnIndex.length - 1);
-        console.log("clickedBtnIndex " + clickedBtnIndex);
         gameBoard[clickedBtnIndex - 1] = players[playerTurn].playerSign;
         event.target.textContent = players[playerTurn].playerSign;
         changePlayerTurn();
-        movesPlayed++;
 
         const winner = findWinner();
         if (winner == "1" || winner == "2") {
-          console.log(`Winner is ${winner}`);
-          resultTextArea.textContent = `${players[winner-1].playerName} wins.`;
+          resultTextArea.textContent = `${
+            players[winner - 1].playerName
+          } wins.`;
           disableAllButtons();
           startButton.style.visibility = "visible";
         } else if (winner == "0") {
-          console.log("It's a draw!");
           resultTextArea.textContent = "It's a draw!";
           startButton.style.visibility = "visible";
         }
-      }
-      if (movesPlayed == 9) {
-        console.log("Game Ends Here.");
-        startButton.style.visibility = "visible";
       }
 
       displayGameBoard();
@@ -134,8 +126,6 @@ function playGame() {
 
 function resetEverything() {
   players = [];
-  movesPlayed = 0;
-
   playerCount = 0;
   playerTurn = 0;
   gameBoard = null;
@@ -143,11 +133,9 @@ function resetEverything() {
   resultTextArea.textContent = "";
 }
 
-
 let playerCount = 0;
 let playerTurn = 0;
 let players = [];
-let movesPlayed = 0;
 let gameBoard;
 const BLANK_CHAR = "_";
 const mainDiv = document.querySelector("#main");
